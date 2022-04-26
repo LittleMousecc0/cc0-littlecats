@@ -261,20 +261,22 @@ function App() {
         flex={1}
         ai={"center"}
         style={{ padding: 24, backgroundColor: "var(--primary)" }}
-        image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
+        image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.gif" : null}
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
         <s.SpacerSmall />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
           <s.SpacerLarge />
           <s.Container
-            flex={2}
+            flex={1}
             jc={"center"}
             ai={"center"}
             style={{
+              margin: 0,
+              width: 500,
               backgroundColor: "var(--accent)",
-              padding: 24,
-              borderRadius: 24,
+              padding: 50,
+              borderRadius: 100,
               border: "4px soild var(--secondary)",
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
@@ -435,9 +437,7 @@ function App() {
         <s.SpacerMedium />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
           <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/218.png"} /> 
-          </s.Container>
+
           <s.Container
             flex={2}
             jc={"center"}
@@ -446,8 +446,9 @@ function App() {
               backgroundColor: "var(--accent)",
               padding: 24,
               borderRadius: 24,
+              width: 8,
               border: "4px soild var(--secondary)",
-              boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+              boxShadow: "0px 5px 11px 2px rgba(117, 190, 218, 0.5)",
             }}
           >
             <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
@@ -474,9 +475,6 @@ function App() {
           </s.TextDescription>
          </s.Container>
          </s.Container>
-         <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/168.png"} /> 
-          </s.Container>
         </ResponsiveWrapper>
         
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
@@ -486,7 +484,7 @@ function App() {
               color: "var(--primary-text)",
             }}
           >
-           &#169;2022 - Mutant Poly Shards
+           &#169;2022 - Little Projects NFT
           </s.TextDescription>
           <s.SpacerSmall />
         </s.Container>
