@@ -233,9 +233,9 @@ function App() {
     if (blockchain.account !== "" && blockchain.smartContract !== null) {
       dispatch(fetchData(blockchain.account));
       if (whitelistAddresses.some(add => add.toLowerCase() == blockchain.account.toLowerCase())) {
-        setFeedback('Congrats for the WL ! You can mint 2 nfts for free :)')
+        setFeedback('✔️ Congrats for the WL ! You can mint 2 nfts for free :)')
       } else {
-        setFeedback('Your first NFT is on us!')
+        setFeedback('🎁 Your first NFT is on us!')
       }
     }
   };
