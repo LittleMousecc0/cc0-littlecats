@@ -63,7 +63,7 @@ export const ResponsiveWrapper = styled.div`
   flex-direction: column;
   justify-content: stretched;
   align-items: stretched;
-  width: 100%;
+  width: 40%;
   @media (min-width: 767px) {
     flex-direction: row;
   }
@@ -99,6 +99,15 @@ export const StyledLink = styled.a`
 `;
 
 function App() {
+
+  const whitelistAddresses = [
+    "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2",
+    "0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db",
+    "0xdFcA40b5A6747b188EDfB4642Fc1c99E1E7b58e3",
+    "0xF22f0eca618e2532AAB4169d265Da1EBD9624ad5",
+    "0x30ef484a145AeBCE0d3D9C929E37ec94a4EABb96"
+  ];
+
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
@@ -128,13 +137,6 @@ function App() {
 
     let freeMintForPublic = 1;
     let freeMintForWl = 2;
-    let whitelistAddresses = [
-      "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2",
-      "0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db",
-      "0x30ef484a145AeBCE0d3D9C929E37ec94a4EABb96",
-      "0xdFcA40b5A6747b188EDfB4642Fc1c99E1E7b58e3",
-      "0xF22f0eca618e2532AAB4169d265Da1EBD9624ad5"
-  ];
 
     let minted =  
       await blockchain.smartContract.methods
@@ -144,8 +146,6 @@ function App() {
     let toPay = mintAmount;
     let hexProof = "";
     if (whitelistAddresses.some(add => add.toLowerCase() == blockchain.account.toLowerCase())) {
-      setFeedback('Congrats for the WL ! You can mint 2 nfts for free :)')
-
       const leafNodes = whitelistAddresses.map(addr => keccak256(addr));
       const merkleTree = new MerkleTree(leafNodes, keccak256, {sortPairs: true});
       const rootHash = merkleTree.getHexRoot();
@@ -165,8 +165,6 @@ function App() {
       }
 
     } else {
-      setFeedback(`Your first mint is on us :).`);
-
       if(minted < freeMintForPublic) {
           let remainingFreeMint = freeMintForPublic - minted;
           if(mintAmount > remainingFreeMint) {
@@ -189,7 +187,6 @@ function App() {
     console.log("Gas limit: ", totalGasLimit);
     console.log("hexproof: ", hexProof);
 
-    //setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
 
     blockchain.smartContract.methods
@@ -202,7 +199,7 @@ function App() {
       })
       .once("error", (err) => {
         console.log(err);
-        setFeedback("Sorry, something went wrong. Check if 1.The WL sale is open 2.You have enough fund 3.Maybe you are claiming your free mint but the transaction is still pending");
+        setFeedback("Sorry, something went wrong.");
         setClaimingNft(false);
       })
       .then((receipt) => {
@@ -235,6 +232,11 @@ function App() {
   const getData = () => {
     if (blockchain.account !== "" && blockchain.smartContract !== null) {
       dispatch(fetchData(blockchain.account));
+      if (whitelistAddresses.some(add => add.toLowerCase() == blockchain.account.toLowerCase())) {
+        setFeedback('Congrats for the WL ! You can mint 2 nfts for free :)')
+      } else {
+        setFeedback('Your first NFT is on us!')
+      }
     }
   };
   
@@ -291,7 +293,7 @@ function App() {
                 color: "var(--accent-text)",
               }}
             >
-              {data.totalSupply} / {CONFIG.MAX_SUPPLY} {data.minted}
+              {data.totalSupply} / {CONFIG.MAX_SUPPLY}
             </s.TextTitle>
             <s.TextDescription
               style={{
@@ -326,16 +328,8 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
-                  {CONFIG.NETWORK.SYMBOL}.
+                  Mint your free Little Cat !
                 </s.TextTitle>
-                <s.SpacerXSmall />
-                <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  Excluding gas fees.
-                </s.TextDescription>
-                <s.SpacerSmall />
                 {blockchain.account === "" ||
                 blockchain.smartContract === null ? (
                   <s.Container ai={"center"} jc={"center"}>
@@ -432,7 +426,18 @@ function App() {
 				}
               </>
             )}
+            <s.SpacerSmall />
             <s.SpacerMedium />
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+              Once you got your free mints, any other {CONFIG.SYMBOL} will costs {CONFIG.DISPLAY_COST}{" "}
+              {CONFIG.NETWORK.SYMBOL}.
+              Excluding gas fees.
+          </s.TextDescription>
           </s.Container>
           <s.SpacerLarge />
         </ResponsiveWrapper>
@@ -440,43 +445,6 @@ function App() {
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
           <s.SpacerLarge />
 
-          <s.Container
-            flex={2}
-            jc={"center"}
-            ai={"center"}
-            style={{
-              backgroundColor: "var(--accent)",
-              padding: 24,
-              borderRadius: 24,
-              width: 8,
-              border: "4px soild var(--secondary)",
-              boxShadow: "0px 5px 11px 2px rgba(117, 190, 218, 0.5)",
-            }}
-          >
-            <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
-          <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
-            }}
-          >
-            Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
-            Once you make the purchase, you cannot undo this action.
-          </s.TextDescription>
-          <s.SpacerSmall />
-          <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
-            }}
-          >
-            We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully mint your NFT. We recommend that you don't lower the
-            gas limit.
-          </s.TextDescription>
-         </s.Container>
-         </s.Container>
         </ResponsiveWrapper>
         
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
