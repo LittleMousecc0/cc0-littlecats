@@ -272,7 +272,7 @@ function App() {
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
           <s.SpacerLarge />
           <s.Container
-            flex={1}
+            flex={2}
             jc={"center"}
             ai={"center"}
             style={{
@@ -441,10 +441,8 @@ function App() {
           </s.Container>
           <s.SpacerLarge />
         </ResponsiveWrapper>
-        <s.SpacerMedium />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
           <s.SpacerLarge />
-
         </ResponsiveWrapper>
         
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
