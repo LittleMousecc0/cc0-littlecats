@@ -288,7 +288,7 @@ function App() {
             <s.TextTitle
               style={{
                 textAlign: "center",
-                fontSize: 50,
+                fontSize: 45,
                 fontWeight: "bold",
                 color: "var(--accent-text)",
               }}
@@ -311,14 +311,18 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  The sale has ended.
+                  SOLD OUT
                 </s.TextTitle>
                 <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
+                    style={{
+                      textAlign: "center",
+                      color: "var(--primary-text)",
+                    }}
+                  >
                   You can still find {CONFIG.NFT_NAME} on
-                </s.TextDescription>
-                <s.SpacerSmall />
+                  </s.TextDescription>
+                  <s.SpacerSmall />
+
                 <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
                   {CONFIG.MARKETPLACE}
                 </StyledLink>
