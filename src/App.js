@@ -100,13 +100,13 @@ export const StyledLink = styled.a`
 
 function App() {
 
-  const whitelistAddresses = [
+  let whitelistAddresses = [
     "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2",
     "0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db",
+    "0x30ef484a145AeBCE0d3D9C929E37ec94a4EABb96",
     "0xdFcA40b5A6747b188EDfB4642Fc1c99E1E7b58e3",
-    "0xF22f0eca618e2532AAB4169d265Da1EBD9624ad5",
-    "0x30ef484a145AeBCE0d3D9C929E37ec94a4EABb96"
-  ];
+    "0xF22f0eca618e2532AAB4169d265Da1EBD9624ad5"
+];
 
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
